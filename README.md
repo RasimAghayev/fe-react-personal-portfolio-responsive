@@ -8,6 +8,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 npm install react-bootstrap bootstrap
 ```
 
+[react-bootstrap-icons](https://www.npmjs.com/package/react-bootstrap-icons)
+[react-bootstrap-icons](https://icons.getbootstrap.com/#usage)
+```shell
+npm install react-bootstrap-icons --save
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
