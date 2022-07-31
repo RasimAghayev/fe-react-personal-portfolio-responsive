@@ -9,9 +9,12 @@ npm install react-bootstrap bootstrap
 ```
 
 [react-bootstrap-icons](https://www.npmjs.com/package/react-bootstrap-icons)
-[react-bootstrap-icons](https://icons.getbootstrap.com/#usage)
 ```shell
 npm install react-bootstrap-icons --save
+```
+[react-multi-carousel](https://www.npmjs.com/package/react-multi-carousel)
+```shell
+npm install react-multi-carousel --save
 ```
 
 ## Available Scripts
