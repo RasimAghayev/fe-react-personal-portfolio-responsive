@@ -52,7 +52,7 @@ export const NavBar = () =>{
                             <a href="#"><img src={navIcon2} alt=""/></a>
                             <a href="#"><img src={navIcon3} alt=""/></a>
                         </div>
-                        <button className="vvd" onClick={()=>console.log('connect')}>
+                        <button className="vvd" onClick={()=>onUpdateActiveLink('contact')}>
                             <span>Let's connect</span>
                         </button>
                     </span>
