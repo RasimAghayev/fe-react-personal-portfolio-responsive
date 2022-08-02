@@ -28,7 +28,7 @@ export const Skills=()=>{
         }
     }
     return (
-        <section className="skill">
+        <section className="skill" id="skills">
             <Container>
                 <Row>
                     <Col>
@@ -41,23 +41,23 @@ export const Skills=()=>{
                             </p>
                             <Carousel className="skill-slider" responsive={responsive} infinite={true}>
                                 <div className="item">
-                                    <img src={meter1} alt="Image"/>
+                                    <input type="image" src={meter1} alt="Image"/>
                                     <h5>Web Developer</h5>
                                 </div>
                                 <div className="item">
-                                    <img src={meter2} alt="Image"/>
+                                    <input type="image" src={meter2} alt="Image"/>
                                     <h5>Web Designer</h5>
                                 </div>
                                 <div className="item">
-                                    <img src={meter3} alt="Image"/>
+                                    <input type="image" src={meter3} alt="Image"/>
                                     <h5>UI/UX Designer</h5>
                                 </div>
                                 <div className="item">
-                                    <img src={meter4} alt="Image"/>
+                                    <input type="image" src={meter4} alt="Image"/>
                                     <h5>PHP</h5>
                                 </div>
                                 <div className="item">
-                                    <img src={meter5} alt="Image"/>
+                                    <input type="image" src={meter5} alt="Image"/>
                                     <h5>Laravel</h5>
                                 </div>
                             </Carousel>
@@ -65,7 +65,7 @@ export const Skills=()=>{
                     </Col>
                 </Row>
             </Container>
-            <img src={colorSharp} className="background-image-left"/>
+            <input type="image" img src={colorSharp} className="background-image-left" alt=""/>
         </section>
     )
 }
