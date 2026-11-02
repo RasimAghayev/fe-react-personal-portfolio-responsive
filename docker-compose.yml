@@ -1,0 +1,10 @@
+services:
+  server:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - CONTACT_RECIPIENT=${CONTACT_RECIPIENT}

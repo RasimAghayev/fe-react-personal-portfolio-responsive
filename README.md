@@ -29,6 +29,27 @@ npm install -save express cors nodemailer
 npm install react-mailchimp-subscribe
 ```
 
+## Backend (contact-form mail relay)
+
+`server.js` is a standalone Express script, independent of the React app, that
+emails contact-form submissions via Gmail SMTP. Copy `.env.example` to `.env`
+and fill in `EMAIL_USER`/`EMAIL_PASS` (a Gmail App Password, not your account
+password) before running it.
+
+Run it directly:
+```shell
+npm run server
+```
+
+Or via Docker:
+```shell
+docker compose up --build
+```
+Both read the same env vars (`EMAIL_USER`, `EMAIL_PASS`, `CONTACT_RECIPIENT`,
+`PORT`) — Docker Compose picks them up from a `.env` file in the project root.
+The frontend's `REACT_APP_API_URL` must point at wherever this ends up
+running; see `.env.example`.
+
 ## Available Scripts
 
 In the project directory, you can run:
