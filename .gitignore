@@ -147,3 +147,5 @@ dist
 *.iml
 out
 gen
+
+.idea/
