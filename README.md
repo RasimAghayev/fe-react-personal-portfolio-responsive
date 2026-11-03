@@ -1,30 +1,37 @@
 # Getting Started with Create React App
 
+![Views](https://hits.sh/github.com/RasimAghayev/fe-react-personal-portfolio-responsive.svg?label=views&color=0e75b6)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 ## Used Tools
 
 [react-bootstrap](https://react-bootstrap.github.io/)
+
 ```shell
 npm install react-bootstrap bootstrap
 ```
 
 [react-bootstrap-icons](https://www.npmjs.com/package/react-bootstrap-icons)
+
 ```shell
 npm install react-bootstrap-icons --save
 ```
+
 [react-multi-carousel](https://www.npmjs.com/package/react-multi-carousel)
+
 ```shell
 npm install react-multi-carousel --save
 ```
 
+express cors nodemailer
 
-express cors nodemailer 
 ```shell
-npm install -save express cors nodemailer 
+npm install -save express cors nodemailer
 ```
 
-
 [react-mailchimp-subscribe](https://www.npmjs.com/package/react-mailchimp-subscribe)
+
 ```shell
 npm install react-mailchimp-subscribe
 ```
@@ -37,14 +44,17 @@ and fill in `EMAIL_USER`/`EMAIL_PASS` (a Gmail App Password, not your account
 password) before running it.
 
 Run it directly:
+
 ```shell
 npm run server
 ```
 
 Or via Docker:
+
 ```shell
 docker compose up --build
 ```
+
 Both read the same env vars (`EMAIL_USER`, `EMAIL_PASS`, `CONTACT_RECIPIENT`,
 `PORT`) — Docker Compose picks them up from a `.env` file in the project root.
 The frontend's `REACT_APP_API_URL` must point at wherever this ends up
