@@ -21,8 +21,11 @@ This is the Phase 2.6 plan: how Phases 3-5 (`PROMPT.md`) will be applied here, w
    - P1 "where does the contact backend actually run in production" is an open question for you: this plan assumes we containerize `server.js` and document a real deployment target (Phase 4.3/4.4) rather than silently leaving the feature broken. Flagging this as a decision point, not an approval-gate item.
 3. **Docker:** add a multi-stage Dockerfile + compose for `server.js` (the SPA itself is static and typically doesn't need its own container — will confirm the intended hosting target with you before assuming one).
 4. **Dual-mode independence:** `.env.example` covering `EMAIL_USER`, `EMAIL_PASS`, `REACT_APP_MAILCHIMP_URL/U/ID`, and the contact-form API base URL; `/health/live` + `/health/ready` on the Express server.
+   - **Done 2026-11-03** (commit `8ae0e7f`, see `docs/TECHNICAL_DEBT.md` #20) — both endpoints added; `.env.example` already covered the full env surface.
 5. **Observability:** structured logging for the Express server (currently bare `console.log`); nothing applicable on the static frontend beyond what `web-vitals` already reports.
+   - **Done 2026-11-03** (commit `8ae0e7f`) — minimal JSON structured logger, no new dependency.
 6. **Quality tooling:** ESLint config already exists (`react-app` preset) — add Prettier and a pre-commit hook; no type checker planned (plain JS, converting to TypeScript would be a separate, larger decision — not assumed here).
+   - **Done 2026-11-03** (commit `6f418b6`) — Prettier added (`.prettierrc`, `.prettierignore`), husky + lint-staged pre-commit hook runs `eslint --max-warnings=0` + `prettier --write` on staged JS/JSX and `prettier --write` on JSON/CSS/MD/YAML. Deliberately incremental, not a mass reformat of the existing codebase — verified live (the hook ran on this very commit).
 7. **CI/CD:** GitHub Actions — install, lint, test (react-scripts test, non-interactive), build. Added before the bot-PR merge wave in Phase 3.2 so those merges have a real signal.
 
 ## Phase 5 — Tests
