@@ -3,6 +3,12 @@ const router = express.Router();
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 
+// Minimal structured logger: one JSON object per line, no new dependency
+// for a single-route service this small.
+const log = (level, message, meta = {}) => {
+    console.log(JSON.stringify({ ts: new Date().toISOString(), level, message, ...meta }));
+};
+
 // server used to send send emails
 const app = express();
 app.use(cors());
@@ -15,11 +21,15 @@ const EMAIL_PASS = process.env.EMAIL_PASS;
 const CONTACT_RECIPIENT = process.env.CONTACT_RECIPIENT || EMAIL_USER;
 
 if (!EMAIL_USER || !EMAIL_PASS) {
-    console.error("EMAIL_USER and EMAIL_PASS must be set in the environment. See .env.example.");
+    log("error", "EMAIL_USER and EMAIL_PASS must be set in the environment. See .env.example.");
     process.exit(1);
 }
 
-app.listen(PORT, () => console.log(`Server Running on port ${PORT}`));
+let mailerReady = false;
+
+if (require.main === module) {
+    app.listen(PORT, () => log("info", `Server running on port ${PORT}`));
+}
 
 const contactEmail = nodemailer.createTransport({
     service: 'gmail',
@@ -31,9 +41,25 @@ const contactEmail = nodemailer.createTransport({
 
 contactEmail.verify((error) => {
     if (error) {
-        console.log(error);
+        log("error", "Mailer verification failed", { error: error.message });
     } else {
-        console.log("Ready to Send");
+        mailerReady = true;
+        log("info", "Mailer ready to send");
+    }
+});
+
+// Liveness: the process is up and serving requests at all.
+router.get("/health/live", (req, res) => {
+    res.json({ status: "ok" });
+});
+
+// Readiness: the process is up AND its one real dependency (the mail
+// transport) has been verified usable.
+router.get("/health/ready", (req, res) => {
+    if (mailerReady) {
+        res.json({ status: "ok" });
+    } else {
+        res.status(503).json({ status: "unavailable", reason: "mailer not verified" });
     }
 });
 
@@ -53,9 +79,13 @@ router.post("/contact", (req, res) => {
     };
     contactEmail.sendMail(mail, (error) => {
         if (error) {
-            res.json(error);
+            log("error", "Failed to send contact email", { error: error.message });
+            res.status(502).json({ code: 502, status: "Failed to send", error: error.message });
         } else {
+            log("info", "Contact email sent");
             res.json({ code: 200, status: "Message Sent" });
         }
     });
 });
+
+module.exports = app;
