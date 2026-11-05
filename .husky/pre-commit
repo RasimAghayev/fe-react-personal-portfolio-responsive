@@ -1,1 +1,5 @@
 npx lint-staged
+
+# Secret scan on staged changes (Phase 4, git hygiene). See scripts/secret-scan.sh
+# for why this snapshots staged blobs instead of scanning .git directly.
+bash scripts/secret-scan.sh
