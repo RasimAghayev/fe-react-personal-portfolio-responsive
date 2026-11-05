@@ -60,6 +60,15 @@ Both read the same env vars (`EMAIL_USER`, `EMAIL_PASS`, `CONTACT_RECIPIENT`,
 The frontend's `REACT_APP_API_URL` must point at wherever this ends up
 running; see `.env.example`.
 
+## Security notes
+
+The pre-commit hook (Husky, `.husky/pre-commit`) runs `lint-staged` and then
+a `gitleaks` secret scan (`scripts/secret-scan.sh`) over your staged changes.
+It uses a local `gitleaks` binary if installed, otherwise a disposable
+`zricethezav/gitleaks` Docker container — no new project dependency added.
+If neither is available it warns and lets the commit through; a CI
+secret-scan job is the real backstop either way.
+
 ## Available Scripts
 
 In the project directory, you can run:
