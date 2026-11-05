@@ -1,0 +1,43 @@
+# Normalize line endings for everything by default; Git decides text vs binary
+# using its own heuristics unless overridden below.
+* text=auto eol=lf
+
+# Source and config files — force LF explicitly (avoids the Windows/Docker
+# CRLF mismatch class of CI failure).
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.env.example text eol=lf
+Dockerfile text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Windows-only scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary — never diff/normalize
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+
+# Lockfile: generated, never hand-edited — diff noise reduction
+package-lock.json -diff linguist-generated=true
