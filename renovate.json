@@ -1,0 +1,45 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "timezone": "Asia/Baku",
+    "schedule": ["before 6am on monday"],
+    "dependencyDashboard": true,
+    "prConcurrentLimit": 5,
+    "prHourlyLimit": 2,
+    "semanticCommits": "enabled",
+    "lockFileMaintenance": {
+        "enabled": true,
+        "schedule": ["before 6am on monday"]
+    },
+    "packageRules": [
+        {
+            "description": "Group all non-major npm updates together to cut PR noise",
+            "matchManagers": ["npm"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "groupName": "npm minor/patch dependencies"
+        },
+        {
+            "description": "Keep major bumps as individual PRs - each needs its own verify+migration pass (standing decision 1)",
+            "matchManagers": ["npm"],
+            "matchUpdateTypes": ["major"],
+            "groupName": null,
+            "dependencyDashboardApproval": false
+        },
+        {
+            "description": "Pin the Node base image to an exact version+digest, not a floating major/minor tag",
+            "matchManagers": ["dockerfile"],
+            "matchDatasources": ["docker"],
+            "pinDigests": true
+        },
+        {
+            "description": "Group GitHub Actions updates together; SHA-pinned so Renovate updates the digest comment too",
+            "matchManagers": ["github-actions"],
+            "groupName": "github actions",
+            "pinDigests": true
+        }
+    ],
+    "vulnerabilityAlerts": {
+        "enabled": true,
+        "labels": ["security"]
+    }
+}
