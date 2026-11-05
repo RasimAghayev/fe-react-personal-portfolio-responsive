@@ -1,10 +1,34 @@
+# Reserved port block for this repo: 20040-20049 (projects/info/state/ports.md).
+# Unique project name so parallel agents/containers from other repos never collide (R4).
+name: fe-react-personal-portfolio-responsive-p5
+
 services:
   server:
-    build: .
+    build:
+      context: .
+      target: runtime
+    image: fe-react-personal-portfolio-responsive:runtime
     ports:
-      - "5000:5000"
+      - "${HOST_PORT:-20040}:5000"
     environment:
       - PORT=5000
       - EMAIL_USER=${EMAIL_USER}
       - EMAIL_PASS=${EMAIL_PASS}
       - CONTACT_RECIPIENT=${CONTACT_RECIPIENT}
+    healthcheck:
+      # /health/ready additionally requires a reachable, correctly
+      # authenticated Gmail SMTP account (real secrets) - not something a
+      # local/CI container can satisfy, so the container-level healthcheck
+      # uses /health/live (process liveness) only. /health/ready remains
+      # available for an external monitor that does have real credentials.
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:5000/health/live', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
